@@ -90,3 +90,46 @@ class _SignupFormState extends State<SignupForm> {
                 },
               ),
               const SizedBox(height: 15),
+                            // Date of Birth Field
+              TextFormField(
+                controller: _dobController,
+                decoration: const InputDecoration(
+                  labelText: 'Date of Birth',
+                  border: OutlineInputBorder(),
+                ),
+                onTap: () => _selectDate(context),
+                readOnly: true,
+                validator: (value) =>
+                    value == null || value.isEmpty ? 'Date of Birth is required' : null,
+              ),
+              const SizedBox(height: 15),
+
+              // Password Field
+              TextFormField(
+                controller: _passwordController,
+                obscureText: !_passwordVisible,
+                decoration: InputDecoration(
+                  labelText: 'Password',
+                  border: const OutlineInputBorder(),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _passwordVisible ? Icons.visibility : Icons.visibility_off,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _passwordVisible = !_passwordVisible;
+                      });
+                    },
+                  ),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Password is required';
+                  }
+                  if (value.length < 6) {
+                    return 'Password must be at least 6 characters';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 15),
