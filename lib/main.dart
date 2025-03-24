@@ -133,3 +133,33 @@ class _SignupFormState extends State<SignupForm> {
                 },
               ),
               const SizedBox(height: 15),
+// Terms Checkbox
+              CheckboxListTile(
+                value: _termsAccepted,
+                onChanged: (value) {
+                  setState(() {
+                    _termsAccepted = value!;
+                  });
+                },
+                title: const Text('I accept the Terms & Conditions'),
+              ),
+              const SizedBox(height: 15),
+
+              // Signup Button with Spinner
+              _isLoading
+                  ? const CircularProgressIndicator()
+                  : ElevatedButton(
+                      onPressed: () {
+                        if (!_termsAccepted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Please accept the Terms & Conditions.'),
+                              backgroundColor: Colors.orange,
+                            ),
+                          );
+                          return;
+                        }
+                        _submitForm();
+                      },
+                      child: const Text('Signup'),
+                    ),
